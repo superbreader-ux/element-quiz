@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elemental Astrology | Divination</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Times New Roman', serif;
+        }
+
+        body {
+            background: #0b0710;
+            background-image: 
+                radial-gradient(circle at 20% 10%, rgba(80, 20, 120, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 90%, rgba(40, 10, 70, 0.2) 0%, transparent 45%);
+            color: #d8cfe8;
+            min-height: 100vh;
+            padding: 30px 15px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            background: rgba(20, 12, 30, 0.85);
+            border: 1px solid #5c3b72;
+            border-radius: 18px;
+            padding: 35px 30px;
+            box-shadow: 0 0 25px rgba(92, 59, 114, 0.35),
+                        inset 0 0 15px rgba(60, 30, 90, 0.2);
+            position: relative;
+        }
+
+        .container::before {
+            content: "✧ ☽ ✦ ☾ ✧";
+            display: block;
+            text-align: center;
+            font-size: 22px;
+            color: #a87dc2;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            color: #e0cff2;
+            letter-spacing: 3px;
+            margin-bottom: 12px;
+            text-shadow: 0 0 8px rgba(180, 130, 220, 0.4);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #9478b0;
+            font-size: 15px;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            color: #c2a8d8;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 13px 16px;
+            background: rgba(35, 22, 50, 0.7);
+            border: 1px solid #4a2f61;
+            border-radius: 10px;
+            color: #e2d4f0;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: #9167b3;
+            box-shadow: 0 0 10px rgba(145, 103, 179, 0.3);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            margin-top: 12px;
+            background: linear-gradient(145deg, #6b3e8c, #472961);
+            border: 1px solid #825aa8;
+            border-radius: 12px;
+            color: #f0e6fa;
+            font-size: 16px;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: linear-gradient(145deg, #804ea3, #5a3477);
+            box-shadow: 0 0 12px rgba(120, 70, 160, 0.4);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 35px;
+            font-size: 13px;
+            color: #705888;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Elemental Astrology Divination</h1>
+        <p class="subtitle">Submit your birth information for celestial reading</p>
+
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" id="userName" placeholder="Enter your name">
+        </div>
+
+        <div class="form-group">
+            <label>Gender</label>
+            <select id="gender">
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Birth Date (Gregorian)</label>
+            <input type="date" id="birthDay" value="1983-07-10">
+        </div>
+
+        <div class="form-group">
+            <label>Birth Time</label>
+            <input type="time" id="birthTime" value="10:02">
+        </div>
+
+        <div class="form-group">
+            <label>Birth City</label>
+            <input type="text" id="birthCity" placeholder="e.g. Zhanjiang, Guangdong">
+        </div>
+
+        <button class="btn" onclick="goToResult()">Begin Divination</button>
+    </div>
+
+    <footer>
+        Occult Arts • Elemental Balance • Celestial Wisdom
+    </footer>
+
+    <script>
+        function goToResult() {
+            const name = document.getElementById('userName').value || "Seeker";
+            const gender = document.getElementById('gender').value;
+            const birthDay = document.getElementById('birthDay').value;
+            const birthTime = document.getElementById('birthTime').value;
+            const birthCity = document.getElementById('birthCity').value;
+
+            if (!birthDay) {
+                alert("Please select your birth date first.");
+                return;
+            }
+
+            const params = new URLSearchParams({
+                name: name, gender: gender, bday: birthDay, btime: birthTime, city: birthCity
+            });
+            window.location.href = "result.html?" + params.toString();
+        }
+    </script>
+</body>
+</html>
