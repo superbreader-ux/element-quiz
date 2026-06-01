@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Personal Crystal Recipe</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Times New Roman',serif; }
+        body { background:#0b0710; background-image:radial-gradient(circle at 20%10%,rgba(80,20,120,0.15)0%,transparent 40%),radial-gradient(circle at 80%90%,rgba(40,10,70,0.2)0%,transparent 45%); color:#e5d4f2; min-height:100vh; padding:30px 15px; }
+        .box { max-width:680px; margin:0 auto; background:rgba(22,12,35,0.92); border:1px solid #9153c2; border-radius:20px; padding:40px 30px; box-shadow:0 0 40px rgba(130,60,180,0.3); }
+        h1 { text-align:center; color:#f1d3ff; font-size:30px; margin-bottom:20px; text-shadow:0 0 10px rgba(180,120,220,0.5); }
+        h2 { color:#d8b8ff; margin:25px 0 10px; font-size:20px; }
+        p { line-height:1.7; font-size:15px; margin:8px 0; color:#e0d0f0; }
+        .section { background:rgba(35,20,55,0.8); border:1px solid #6a3d91; border-radius:12px; padding:20px; margin:15px 0; }
+        .badge { display:inline-block; padding:4px 10px; background:#7a3ab8; color:#fff; border-radius:8px; font-size:13px; margin-right:6px; }
+        .ok { color:#a5e9b3; }
+        .no { color:#ff9e9e; }
+        .footer-note { text-align:center; margin-top:30px; font-size:13px; color:#a894c0; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>🔮 FULL PERSONAL CRYSTAL RECIPE</h1>
+        <p style="text-align:center;">Your personal crystal prescription has been unlocked.</p>
+
+        <div class="section">
+            <h2>🧿 Your Elemental Status</h2>
+            <p id="status"></p>
+        </div>
+
+        <div class="section">
+            <h2>✨ LEFT HAND BRACELET (Absorb Energy)</h2>
+            <p id="left"></p>
+        </div>
+
+        <div class="section">
+            <h2>🖤 RIGHT HAND BRACELET (Release / Protect)</h2>
+            <p id="right"></p>
+        </div>
+
+        <div class="section">
+            <h2>🏠 HOME CRYSTAL SETUP</h2>
+            <p id="home"></p>
+        </div>
+
+        <!-- 新增：穿衣颜色建议 -->
+        <div class="section">
+            <h2>👗 Clothing Colors</h2>
+            <p><span class="ok">✔ Wear More:</span> <span id="wearMore"></span></p>
+            <p><span class="no">✖ Avoid:</span> <span id="wearAvoid"></span></p>
+        </div>
+
+        <!-- 新增：家庭颜色建议 -->
+        <div class="section">
+            <h2>🎨 Home Color Scheme</h2>
+            <p><span class="ok">✔ Best Colors:</span> <span id="homeUse"></span></p>
+            <p><span class="no">✖ Avoid:</span> <span id="homeAvoid"></span></p>
+        </div>
+
+        <div class="footer-note">
+            This is your personal spiritual blueprint. Use wisely.
+        </div>
+    </div>
+
+    <script>
+        const elm = JSON.parse(sessionStorage.getItem('elm')) || {fire:1,earth:1,air:0,water:4};
+        let needFire = elm.fire <= 1;
+        let needEarth = elm.earth <= 1;
+        let needAir = elm.air <= 1;
+        let excessWater = elm.water >= 3;
+
+        // Status
+        document.getElementById('status').innerHTML = `
+            Fire: ${elm.fire} | Earth: ${elm.earth} | Air: ${elm.air} | Water: ${elm.water}<br>
+            ${needAir?'<span class=badge>Air Needed</span>':''}
+            ${needEarth?'<span class=badge>Earth Needed</span>':''}
+            ${needFire?'<span class=badge>Fire Needed</span>':''}
+            ${excessWater?'<span class=badge>Water Control</span>':''}
+        `;
+
+        // LEFT HAND (absorb energy)
+        let leftBracelet = "";
+        if(needAir) leftBracelet += "Clear Quartz (Air) • ";
+        if(needEarth) leftBracelet += "Citrine / Tiger's Eye (Earth) • ";
+        if(needFire) leftBracelet += "Garnet (Fire) • ";
+        if(!needAir&&!needEarth&&!needFire) leftBracelet += "Amethyst • ";
+        leftBracelet += "Sterling Silver Spacers";
+        document.getElementById('left').innerText = leftBracelet;
+
+        // RIGHT HAND (release / protect)
+        let rightBracelet = excessWater ? "Smoky Quartz (drain excess water)" : "Black Tourmaline (protection)";
+        document.getElementById('right').innerText = rightBracelet;
+
+        // HOME CRYSTAL
+        let home = "";
+        if(needAir) home += "Window: Clear Quartz\n";
+        if(needEarth) home += "Desk: Citrine / Tiger's Eye\n";
+        if(needFire) home += "Living Room: Carnelian\n";
+        if(excessWater) home += "Bedroom: Smoky Quartz (reduce overthinking)\n";
+        document.getElementById('home').innerText = home;
+
+        // ========== 新增：穿衣颜色 ==========
+        let wearMoreArr = [];
+        let wearAvoidArr = [];
+
+        if(needFire) wearMoreArr.push("Red, Orange, Coral");
+        if(needEarth) wearMoreArr.push("Brown, Beige, Terracotta");
+        if(needAir) wearMoreArr.push("White, Light Yellow, Silver");
+        if(excessWater) wearAvoidArr.push("Deep Blue, Black, Navy"); // 水过旺少穿水色
+
+        // 若不缺，也给基础平衡色
+        if(wearMoreArr.length===0) wearMoreArr.push("Soft Purple, Light Pink, Grey");
+        if(wearAvoidArr.length===0) wearAvoidArr.push("Neon & Harsh Contrast");
+
+        document.getElementById('wearMore').innerText = wearMoreArr.join(" • ");
+        document.getElementById('wearAvoid').innerText = wearAvoidArr.join(" • ");
+
+        // ========== 新增：家庭颜色 ==========
+        let homeUseArr = [];
+        let homeAvoidArr = [];
+
+        if(needFire) homeUseArr.push("Warm Red, Orange Accents");
+        if(needEarth) homeUseArr.push("Wood Tones, Beige, Brown");
+        if(needAir) homeUseArr.push("White Walls, Light Yellow, Metallic Silver");
+        if(excessWater) homeAvoidArr.push("Dark Blue Walls, Black Furniture");
+
+        if(homeUseArr.length===0) homeUseArr.push("Soft Lavender, Mauve, Gentle Grey");
+        if(homeAvoidArr.length===0) homeAvoidArr.push("Overly Bright Neon, All-Black Rooms");
+
+        document.getElementById('homeUse').innerText = homeUseArr.join(" • ");
+        document.getElementById('homeAvoid').innerText = homeAvoidArr.join(" • ");
+
+    </script>
+</body>
+</html>

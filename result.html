@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divination Result</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Times New Roman',serif; }
+        body { background:#0b0710; background-image:radial-gradient(circle at 20% 10%,rgba(80,20,120,0.15)0%,transparent 40%),radial-gradient(circle at 80%90%,rgba(40,10,70,0.2)0%,transparent 45%); color:#d8cfe8; min-height:100vh; padding:30px 15px; }
+        .container { max-width:680px; margin:0 auto; background:rgba(20,12,30,0.85); border:1px solid #5c3b72; border-radius:18px; padding:35px 30px; box-shadow:0 0 25px rgba(92,59,114,0.35); }
+        .container::before { content:"✧ ☽ ✦ ☾ ✧"; display:block; text-align:center; font-size:22px; color:#a87dc2; letter-spacing:8px; margin-bottom:20px; }
+        h1 { text-align:center; font-size:28px; color:#e0cff2; letter-spacing:3px; margin-bottom:12px; text-shadow:0 0 8px rgba(180,130,220,0.4); }
+        .result-panel { margin:30px 0; padding:25px; background:rgba(28,17,42,0.8); border:1px solid #54346b; border-radius:14px; }
+        .element-row { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(80,50,110,0.3); }
+        .tag { padding:3px 10px; border-radius:20px; font-size:12px; font-weight:bold; }
+        .tag-lack { background:rgba(160,40,60,0.25); color:#ff8899; border:1px solid #7a2c3c; }
+        .tag-excess { background:rgba(180,110,20,0.25); color:#ffc873; border:1px solid #805c20; }
+        .tag-balance { background:rgba(40,130,90,0.25); color:#88e0b0; border:1px solid #2a6b4f; }
+        .diagnosis, .suggestion { margin-top:22px; font-size:14px; color:#c9b6e0; }
+        .btn-group { display:flex; gap:15px; margin-top:20px; }
+        .btn { flex:1; padding:14px; background:linear-gradient(145deg,#6b3e8c,#472961); border:1px solid #825aa8; border-radius:12px; color:#f0e6fa; cursor:pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Celestial Reading</h1>
+        <div class="result-panel" id="resultArea"></div>
+        <div class="btn-group">
+            <button class="btn" onclick="location.href='index.html'">Back</button>
+            <button class="btn" onclick="location.href='personality.html'">View Personality</button>
+        </div>
+    </div>
+    <script>
+        const params = new URLSearchParams(location.search);
+        const userName = params.get('name') || "Seeker";
+        const birthDay = params.get('bday');
+
+        function getSunSign(m,d){
+            const s = [
+                {sign:"capricorn",name:"Capricorn",element:"earth",start:[12,22],end:[1,19]},
+                {sign:"aquarius",name:"Aquarius",element:"air",start:[1,20],end:[2,18]},
+                {sign:"pisces",name:"Pisces",element:"water",start:[2,19],end:[3,20]},
+                {sign:"aries",name:"Aries",element:"fire",start:[3,21],end:[4,19]},
+                {sign:"taurus",name:"Taurus",element:"earth",start:[4,20],end:[5,20]},
+                {sign:"gemini",name:"Gemini",element:"air",start:[5,21],end:[6,21]},
+                {sign:"cancer",name:"Cancer",element:"water",start:[6,22],end:[7,22]},
+                {sign:"leo",name:"Leo",element:"fire",start:[7,23],end:[8,22]},
+                {sign:"virgo",name:"Virgo",element:"earth",start:[8,23],end:[9,22]},
+                {sign:"libra",name:"Libra",element:"air",start:[9,23],end:[10,23]},
+                {sign:"scorpio",name:"Scorpio",element:"water",start:[10,24],end:[11,22]},
+                {sign:"sagittarius",name:"Sagittarius",element:"fire",start:[11,23],end:[12,21]}
+            ];
+            for(let x of s){const [sm,sd]=x.start;const [em,ed]=x.end;if((m===sm&&d>=sd)||(m===em&&d<=ed))return x;}
+            return s[6];
+        }
+
+        function calculateElements(sign){
+            const map = {
+                cancer:{fire:1,earth:1,air:0,water:4},
+                leo:{fire:4,earth:1,air:1,water:0},
+                virgo:{fire:0,earth:4,air:1,water:1},
+                libra:{fire:1,earth:0,air:4,water:1},
+                scorpio:{fire:1,earth:1,air:0,water:4},
+                sagittarius:{fire:4,earth:1,air:1,water:0},
+                capricorn:{fire:0,earth:4,air:1,water:1},
+                aquarius:{fire:1,earth:1,air:4,water:0},
+                pisces:{fire:1,earth:0,air:1,water:4},
+                aries:{fire:4,earth:1,air:1,water:0},
+                taurus:{fire:1,earth:4,air:0,water:1},
+                gemini:{fire:1,earth:0,air:4,water:1}
+            };
+            return map[sign]||map.cancer;
+        }
+
+        function init(){
+            const d = new Date(birthDay);
+            const sign = getSunSign(d.getMonth()+1,d.getDate());
+            const elm = calculateElements(sign.sign);
+            const vals = [elm.fire,elm.earth,elm.air,elm.water];
+            const max = Math.max(...vals);
+            const min = Math.min(...vals);
+            const tag = (v)=> v===min?'Lacking':v===max?'Excessive':'Balanced';
+            const cls = (v)=> v===min?'tag-lack':v===max?'tag-excess':'tag-balance';
+            let html = `<h3>Result for ${userName}</h3>`;
+            html += `<p style='text-align:center;margin-bottom:15px;'>Sun Sign: ${sign.name}</p>`;
+            html += `<div class='element-row'><span>🔥 Fire</span><span>${elm.fire} <span class='tag ${cls(elm.fire)}'>${tag(elm.fire)}</span></span></div>`;
+            html += `<div class='element-row'><span>🪨 Earth</span><span>${elm.earth} <span class='tag ${cls(elm.earth)}'>${tag(elm.earth)}</span></span></div>`;
+            html += `<div class='element-row'><span>💨 Air</span><span>${elm.air} <span class='tag ${cls(elm.air)}'>${tag(elm.air)}</span></span></div>`;
+            html += `<div class='element-row'><span>💧 Water</span><span>${elm.water} <span class='tag ${cls(elm.water)}'>${tag(elm.water)}</span></span></div>`;
+            html += `<div class='diagnosis'><h4>Energy Status</h4>`;
+            if(elm.water>=3) html+=`<p>Water is excessive: sensitive & overthinking.</p>`;
+            if(elm.air===0) html+=`<p>Air is lacking: weak logic & boundaries.</p>`;
+            if(elm.earth===0) html+=`<p>Earth is lacking: ungrounded & insecure.</p>`;
+            if(elm.fire===0) html+=`<p>Fire is weak: low confidence & motivation.</p>`;
+            html+=`</div>`;
+            document.getElementById('resultArea').innerHTML=html;
+            sessionStorage.setItem('elm',JSON.stringify(elm));
+        }
+        window.onload=init;
+    </script>
+</body>
+</html>
