@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔮 Element Wisdom - Witch Reading</title>
+    <title>星座占卜 - 神秘水晶球</title>
     <style>
         * {
             margin: 0;
@@ -13,225 +13,238 @@
         }
 
         body {
-            background: #050208;
-            color: #e9d8ff;
+            /* 神秘暗黑背景 + 柔光渐变 */
+            background: #0b0710 url('https://images.unsplash.com/photo-1534447677768-be436bb09401?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+            background-blend-mode: overlay;
+            background-color: rgba(11,7,16,0.85);
+            color: #d8cfe8;
             min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
+            padding: 30px 15px;
+            line-height: 1.6;
         }
 
-        /* 星空背景动画 */
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
+        /* 顶部水晶球+双手容器 */
+        .crystal-wrapper {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            margin: 0 auto 20px;
+        }
+
+        .hands {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -30%);
             width: 100%;
             height: 100%;
-            background: url('https://i.imgur.com/qqpxl4H.jpeg') center/cover no-repeat;
-            z-index: -2;
-            animation: fadeIn 3s ease-in-out;
+            background: url('https://www.pngkey.com/png/full/914-9147725_gypsy-hands-png.png') center/contain no-repeat;
+            z-index: 2;
+        }
+
+        .crystal-ball {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #e8d8ff, #6b3e8c, #2a1540);
+            box-shadow: 0 0 40px rgba(180,130,220,0.6),
+                        inset 0 0 30px rgba(255,255,255,0.2);
+            overflow: hidden;
+            z-index: 3;
         }
 
         .constellation {
-            position: fixed;
-            top: 0;
-            left: 0;
+            position: absolute;
             width: 100%;
             height: 100%;
-            background: url('https://i.imgur.com/4aAu2aH.png') center/cover no-repeat;
-            opacity: 0.15;
-            z-index: -1;
-            animation: rotate 120s linear infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            animation: fade 24s infinite;
         }
 
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        /* 水晶球动画 */
-        .crystal-ball {
+        .constellation svg {
             width: 120px;
             height: 120px;
-            margin: 15px auto;
-            background: radial-gradient(circle, rgba(200,150,255,0.3), rgba(90,30,140,0.8));
-            border-radius: 50%;
-            box-shadow: 0 0 30px #b78aff, 0 0 60px #7c3aed, 0 0 90px #4a148c;
-            animation: pulse 3s ease-in-out infinite;
-            position: relative;
+            fill: none;
+            stroke: #f0e6fa;
+            stroke-width: 1.2;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 30px #b78aff; }
-            50% { transform: scale(1.08); box-shadow: 0 0 50px #d9b8ff; }
+        /* 12星座依次显示 */
+        .constellation:nth-child(1) { animation-delay: 0s; }
+        .constellation:nth-child(2) { animation-delay: 2s; }
+        .constellation:nth-child(3) { animation-delay: 4s; }
+        .constellation:nth-child(4) { animation-delay: 6s; }
+        .constellation:nth-child(5) { animation-delay: 8s; }
+        .constellation:nth-child(6) { animation-delay: 10s; }
+        .constellation:nth-child(7) { animation-delay: 12s; }
+        .constellation:nth-child(8) { animation-delay: 14s; }
+        .constellation:nth-child(9) { animation-delay: 16s; }
+        .constellation:nth-child(10) { animation-delay: 18s; }
+        .constellation:nth-child(11) { animation-delay: 20s; }
+        .constellation:nth-child(12) { animation-delay: 22s; }
+
+        @keyframes fade {
+            0%, 16.66%, 100% { opacity: 0; }
+            2%, 14.66% { opacity: 1; }
         }
 
-        /* 主容器 */
         .container {
-            max-width: 720px;
-            margin: 30px auto;
-            background: rgba(22, 10, 35, 0.85);
-            border: 2px solid #a968ff;
-            border-radius: 28px;
-            padding: 50px 35px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 0 50px rgba(168, 104, 255, 0.2);
+            max-width: 680px;
+            margin: 0 auto;
+            background: rgba(20, 12, 30, 0.85);
+            border: 1px solid #5c3b72;
+            border-radius: 18px;
+            padding: 35px 30px;
+            box-shadow: 0 0 25px rgba(92, 59, 114, 0.35),
+                        inset 0 0 15px rgba(60, 30, 90, 0.2);
             position: relative;
-            z-index: 10;
-            animation: containerFade 2.5s ease;
+            z-index: 1;
         }
 
-        @keyframes containerFade {
-            0% { opacity: 0; transform: translateY(40px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        .title {
+        .container::before {
+            content: "✧ ☽ ✦ ☾ ✧";
+            display: block;
             text-align: center;
-            font-size: 34px;
-            color: #f1d3ff;
-            text-shadow: 0 0 15px #b78aff, 0 0 30px #7c3aed;
-            margin-bottom: 10px;
-            letter-spacing: 2px;
+            font-size: 22px;
+            color: #a87dc2;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            color: #e0cff2;
+            letter-spacing: 3px;
+            margin-bottom: 12px;
+            text-shadow: 0 0 8px rgba(180, 130, 220, 0.4);
         }
 
         .subtitle {
             text-align: center;
-            color: #d1b3ff;
-            font-size: 16px;
-            margin-bottom: 25px;
-            font-style: italic;
-        }
-
-        .section {
-            margin-bottom: 22px;
+            color: #9478b0;
             font-size: 15px;
-            line-height: 1.8;
-            text-align: center;
-            color: #e4d4ff;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
         }
 
-        .section h3 {
-            color: #f1d3ff;
-            font-size: 18px;
-            margin-bottom: 8px;
-            text-shadow: 0 0 6px #b78aff;
-        }
-
-        .divider {
-            width: 60%;
-            height: 2px;
-            background: linear-gradient(to right, transparent, #a968ff, transparent);
-            margin: 30px auto;
-            border: none;
-        }
-
-        /* 表单 */
         .form-group {
             margin-bottom: 18px;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
-            color: #d9b8ff;
+            margin-bottom: 7px;
+            color: #c2a8d8;
             font-size: 14px;
-            text-shadow: 0 0 4px #b78aff;
+            letter-spacing: 1px;
         }
 
         input, select {
             width: 100%;
-            padding: 14px 16px;
-            background: rgba(35, 15, 55, 0.7);
-            border: 1px solid #9466e0;
-            border-radius: 14px;
-            color: #f0e6ff;
+            padding: 13px 16px;
+            background: rgba(35, 22, 50, 0.7);
+            border: 1px solid #4a2f61;
+            border-radius: 10px;
+            color: #e2d4f0;
             font-size: 15px;
             outline: none;
-            transition: 0.3s;
-            box-shadow: inset 0 0 10px rgba(168, 104, 255, 0.1);
+            transition: all 0.3s ease;
         }
 
         input:focus, select:focus {
-            border-color: #d9b8ff;
-            box-shadow: 0 0 12px #b78aff;
+            border-color: #9167b3;
+            box-shadow: 0 0 10px rgba(145, 103, 179, 0.3);
         }
 
-        /* 按钮魔法特效 */
-        .start-btn {
-            display: block;
+        .btn {
             width: 100%;
-            padding: 18px;
-            margin-top: 25px;
-            background: linear-gradient(145deg, #7c3aed, #4a148c);
-            border: 2px solid #b78aff;
-            border-radius: 18px;
-            color: #fff;
-            font-size: 17px;
-            font-weight: bold;
-            text-align: center;
+            padding: 14px;
+            margin-top: 12px;
+            background: linear-gradient(145deg, #6b3e8c, #472961);
+            border: 1px solid #825aa8;
+            border-radius: 12px;
+            color: #f0e6fa;
+            font-size: 16px;
+            letter-spacing: 2px;
             cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 0 20px #9c27b0;
-            text-shadow: 0 0 6px #fff;
+            transition: all 0.3s ease;
         }
 
-        .start-btn:hover {
-            transform: scale(1.03);
-            box-shadow: 0 0 35px #d9b8ff;
-            background: linear-gradient(145deg, #9c27b0, #7c3aed);
+        .btn:hover {
+            background: linear-gradient(145deg, #804ea3, #5a3477);
+            box-shadow: 0 0 12px rgba(120, 70, 160, 0.4);
         }
 
-        .magic-symbol {
+        footer {
             text-align: center;
-            font-size: 26px;
-            color: #d1b3ff;
-            margin: 15px 0;
-            letter-spacing: 12px;
-            text-shadow: 0 0 12px #b78aff;
+            margin-top: 35px;
+            font-size: 13px;
+            color: #705888;
+            letter-spacing: 1px;
         }
     </style>
 </head>
-
 <body>
-    <div class="stars"></div>
-    <div class="constellation"></div>
+    <!-- 水晶球 + 双手 -->
+    <div class="crystal-wrapper">
+        <div class="hands"></div>
+        <div class="crystal-ball">
+            <!-- 12星座SVG -->
+            <div class="constellation">
+                <svg viewBox="0 0 100 100"><path d="M50,10 L60,40 L90,50 L60,60 L50,90 L40,60 L10,50 L40,40 Z"/></svg>
+            </div>
+            <div class="constellation">
+                <svg viewBox="0 0 100 100"><path d="M30,20 Q50,5 70,20 Q95,50 70,80 Q50,95 30,80 Q5,50 30,20"/></svg>
+            </div>
+            <div class="constellation">
+                <svg viewBox="0 0 100 100"><path d="M20,30 C40,10 60,10 80,30 C95,50 95,70 80,80 C60,95 40,95 20,80 C5,70 5,50 20,30"/></svg>
+            </div>
+            <div class="constellation">
+                <svg viewBox="0 0 100 100"><path d="M50,20 L70,50 L50,80 L30,50 Z M50,20 L50,80"/></svg>
+            </div>
+            <div class="constellation">
+                <svg viewBox="0 0 100 100"><path d="M30,70 Q50,30 70,70 M50,30 L50,70"/></svg>
+            </div>
+            <div class="constellation">
+                <svg viewBox="0 0 100 100"><path d="M25,25 L75,25 L75,75 L25,75 Z M25,50 L75,50 M50,25 L50,75"/></svg>
+            </div>
+            <div class="constellation">
+                <svg viewBox="0 0 100 100"><path d="M50,15 A35,35 0 1,1 50,85 A35,35 0 1,1 50,15"/></svg>
+            </div>
+            <div class="constellation">
+                <svg viewBox="0 0 100 100"><path d="M50,10 L80,90 M50,10 L20,90 M35,50 L65,50"/></svg>
+            </div>
+            <div class="constellation">
+                <svg viewBox="0 0 100 100"><path d="M20,80 L50,20 L80,80 M35,50 L65,50"/></svg>
+            </div>
+            <div class="constellation">
+                <svg viewBox="0 0 100 100"><path d="M40,20 L60,20 L75,50 L60,80 L40,80 L25,50 Z"/></svg>
+            </div>
+            <div class="constellation">
+                <svg viewBox="0 0 100 100"><path d="M50,20 L65,40 L90,45 L70,60 L75,85 L50,70 L25,85 L30,60 L10,45 L35,40 Z"/></svg>
+            </div>
+            <div class="constellation">
+                <svg viewBox="0 0 100 100"><path d="M30,20 L70,20 L85,50 L70,80 L30,80 L15,50 Z M50,20 L50,80"/></svg>
+            </div>
+        </div>
+    </div>
 
     <div class="container">
-        <div class="crystal-ball"></div>
-
-        <h1 class="title">🔮 Four Elements Wisdom</h1>
-        <p class="subtitle">Ancient Witch Divination · Star · Crystal · Energy</p>
-
-        <div class="section">
-            <h3>🌙 Origin</h3>
-            <p>From ancient Greek astrologers, passed down by Romani Gypsies and witches.</p>
-        </div>
-
-        <div class="section">
-            <h3>✨ Cosmic Energy</h3>
-            <p>Sun, Moon, and stars affect Earth’s magnetic field and human soul.</p>
-        </div>
-
-        <div class="magic-symbol">🌍 🔥 💨 💧 ⋆</div>
-
-        <div class="section">
-            <h3>🔮 Balance & Healing</h3>
-            <p>Balance Earth, Fire, Wind, Water to restore your body, mind, and magic.</p>
-        </div>
-
-        <hr class="divider">
-
+        <h1>Elemental Astrology Divination</h1>
+        <p class="subtitle">Submit your birth information for celestial reading</p>
         <div class="form-group">
-            <label>Your Name</label>
+            <label>Name</label>
             <input type="text" id="userName" placeholder="Enter your name">
         </div>
-
         <div class="form-group">
             <label>Gender</label>
             <select id="gender">
@@ -239,33 +252,39 @@
                 <option value="male">Male</option>
             </select>
         </div>
-
         <div class="form-group">
-            <label>Birth Date</label>
-            <input type="date" id="birthDay" value="1990-01-01">
+            <label>Birth Date (Gregorian)</label>
+            <input type="date" id="birthDay" value="1983-07-10">
         </div>
-
         <div class="form-group">
             <label>Birth Time</label>
-            <input type="time" id="birthTime" value="10:00">
+            <input type="time" id="birthTime" value="10:02">
         </div>
-
         <div class="form-group">
             <label>Birth City</label>
-            <input type="text" id="birthCity" placeholder="Enter your birth city">
+            <input type="text" id="birthCity" placeholder="e.g. Zhanjiang, Guangdong">
         </div>
-
-        <button class="start-btn" onclick="go()">🔮 Begin Your Reading</button>
+        <button class="btn" onclick="goToResult()">Begin Divination</button>
     </div>
+    <footer>
+        Occult Arts • Elemental Balance • Celestial Wisdom
+    </footer>
 
     <script>
-        function go() {
-            const name = document.getElementById('userName').value || 'Seeker';
+        function goToResult() {
+            const name = document.getElementById('userName').value || "Seeker";
             const gender = document.getElementById('gender').value;
-            const bday = document.getElementById('birthDay').value;
-            const btime = document.getElementById('birthTime').value;
-            const city = document.getElementById('birthCity').value;
-            location.href = `result.html?name=${name}&gender=${gender}&bday=${bday}&btime=${btime}&city=${city}`;
+            const birthDay = document.getElementById('birthDay').value;
+            const birthTime = document.getElementById('birthTime').value;
+            const birthCity = document.getElementById('birthCity').value;
+            if (!birthDay) {
+                alert("Please select your birth date first.");
+                return;
+            }
+            const params = new URLSearchParams({
+                name: name, gender: gender, bday: birthDay, btime: birthTime, city: birthCity
+            });
+            window.location.href = "result.html?" + params.toString();
         }
     </script>
 </body>
