@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>星座占卜 - 神秘水晶球</title>
+    <title>Element Wisdom - Witch Reading</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
         }
 
         body {
-            background: #0b0710 url('https://images.unsplash.com/photo-1534447677768-be436bb09401?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+            background: #0b0710 url('https://images.unsplash.com/photo-1534447677768-be436bb0940?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
             background-blend-mode: overlay;
             background-color: rgba(11,7,16,0.85);
             color: #d8cfe8;
@@ -22,7 +22,6 @@
             line-height: 1.7;
         }
 
-        /* 水晶球 + 双手 */
         .crystal-wrapper {
             position: relative;
             width: 320px;
@@ -75,7 +74,6 @@
             stroke-width: 1.2;
         }
 
-        /* 12星座依次显示 */
         .constellation:nth-child(1) { animation-delay: 0s; }
         .constellation:nth-child(2) { animation-delay: 2s; }
         .constellation:nth-child(3) { animation-delay: 4s; }
@@ -135,7 +133,6 @@
             letter-spacing: 1px;
         }
 
-        /* 说明区块样式 */
         .intro-block {
             text-align: center;
             margin-bottom: 25px;
@@ -213,47 +210,21 @@
     </style>
 </head>
 <body>
-    <!-- 水晶球 + 双手 -->
     <div class="crystal-wrapper">
         <div class="hands"></div>
         <div class="crystal-ball">
-            <!-- 12星座SVG -->
-            <div class="constellation">
-                <svg viewBox="0 0 100 100"><path d="M50,10 L60,40 L90,50 L60,60 L50,90 L40,60 L10,50 L40,40 Z"/></svg>
-            </div>
-            <div class="constellation">
-                <svg viewBox="0 0 100 100"><path d="M30,20 Q50,5 70,20 Q95,50 70,80 Q50,95 30,80 Q5,50 30,20"/></svg>
-            </div>
-            <div class="constellation">
-                <svg viewBox="0 0 100 100"><path d="M20,30 C40,10 60,10 80,30 C95,50 95,70 80,80 C60,95 40,95 20,80 C5,70 5,50 20,30"/></svg>
-            </div>
-            <div class="constellation">
-                <svg viewBox="0 0 100 100"><path d="M50,20 L70,50 L50,80 L30,50 Z M50,20 L50,80"/></svg>
-            </div>
-            <div class="constellation">
-                <svg viewBox="0 0 100 100"><path d="M30,70 Q50,30 70,70 M50,30 L50,70"/></svg>
-            </div>
-            <div class="constellation">
-                <svg viewBox="0 0 100 100"><path d="M25,25 L75,25 L75,75 L25,75 Z M25,50 L75,50 M50,25 L50,75"/></svg>
-            </div>
-            <div class="constellation">
-                <svg viewBox="0 0 100 100"><path d="M50,15 A35,35 0 1,1 50,85 A35,35 0 1,1 50,15"/></svg>
-            </div>
-            <div class="constellation">
-                <svg viewBox="0 0 100 100"><path d="M50,10 L80,90 M50,10 L20,90 M35,50 L65,50"/></svg>
-            </div>
-            <div class="constellation">
-                <svg viewBox="0 0 100 100"><path d="M20,80 L50,20 L80,80 M35,50 L65,50"/></svg>
-            </div>
-            <div class="constellation">
-                <svg viewBox="0 0 100 100"><path d="M40,20 L60,20 L75,50 L60,80 L40,80 L25,50 Z"/></svg>
-            </div>
-            <div class="constellation">
-                <svg viewBox="0 0 100 100"><path d="M50,20 L65,40 L90,45 L70,60 L75,85 L50,70 L25,85 L30,60 L10,45 L35,40 Z"/></svg>
-            </div>
-            <div class="constellation">
-                <svg viewBox="0 0 100 100"><path d="M30,20 L70,20 L85,50 L70,80 L30,80 L15,50 Z M50,20 L50,80"/></svg>
-            </div>
+            <div class="constellation"><svg viewBox="0 0 100 100"><path d="M50,10 L60,40 L90,50 L60,60 L50,90 L40,60 L10,50 L40,40 Z"/></svg></div>
+            <div class="constellation"><svg viewBox="0 0 100 100"><path d="M30,20 Q50,5 70,20 Q95,50 70,80 Q50,95 30,80 Q5,50 30,20"/></svg></div>
+            <div class="constellation"><svg viewBox="0 0 100 100"><path d="M20,30 C40,10 60,10 80,30 C95,50 95,70 80,80 C60,95 40,95 20,80 C5,70 5,50 20,30"/></svg></div>
+            <div class="constellation"><svg viewBox="0 0 100 100"><path d="M50,20 L70,50 L50,80 L30,50 Z M50,20 L50,80"/></svg></div>
+            <div class="constellation"><svg viewBox="0 0 100 100"><path d="M30,70 Q50,30 70,70 M50,30 L50,70"/></svg></div>
+            <div class="constellation"><svg viewBox="0 0 100 100"><path d="M25,25 L75,25 L75,75 L25,75 Z M25,50 L75,50 M50,25 L50,75"/></svg></div>
+            <div class="constellation"><svg viewBox="0 0 100 100"><path d="M50,15 A35,35 0 1,1 50,85 A35,35 0 1,1 50,15"/></svg></div>
+            <div class="constellation"><svg viewBox="0 0 100 100"><path d="M50,10 L80,90 M50,10 L20,90 M35,50 L65,50"/></svg></div>
+            <div class="constellation"><svg viewBox="0 0 100 100"><path d="M20,80 L50,20 L80,80 M35,50 L65,50"/></svg></div>
+            <div class="constellation"><svg viewBox="0 0 100 100"><path d="M40,20 L60,20 L75,50 L60,80 L40,80 L25,50 Z"/></svg></div>
+            <div class="constellation"><svg viewBox="0 0 100 100"><path d="M50,20 L65,40 L90,45 L70,60 L75,85 L50,70 L25,85 L30,60 L10,45 L35,40 Z"/></svg></div>
+            <div class="constellation"><svg viewBox="0 0 100 100"><path d="M30,20 L70,20 L85,50 L70,80 L30,80 L15,50 Z M50,20 L50,80"/></svg></div>
         </div>
     </div>
 
@@ -261,7 +232,6 @@
         <h1>Element Wisdom - Witch Reading</h1>
         <p class="subtitle">Ancient Witch Divination · Star & Elemental Magic ·</p>
 
-        <!-- 说明 -->
         <div class="intro-block">
             <h2>📜 Ancient Wisdom</h2>
             <p>From ancient Greek astrologers, passed down by Romani Gypsies and witches. This divination combines celestial energy and elemental power to reveal your true self.</p>
@@ -287,7 +257,7 @@
             </select>
         </div>
         <div class="form-group">
-            <label>Birth Date (Gregorian)</label>
+            <label>Birth Date (Year / Month / Day)</label>
             <input type="date" id="birthDay">
         </div>
         <div class="form-group">
