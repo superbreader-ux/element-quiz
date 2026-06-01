@@ -13,17 +13,16 @@
         }
 
         body {
-            /* 神秘暗黑背景 + 柔光渐变 */
             background: #0b0710 url('https://images.unsplash.com/photo-1534447677768-be436bb09401?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
             background-blend-mode: overlay;
             background-color: rgba(11,7,16,0.85);
             color: #d8cfe8;
             min-height: 100vh;
             padding: 30px 15px;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
-        /* 顶部水晶球+双手容器 */
+        /* 水晶球 + 双手 */
         .crystal-wrapper {
             position: relative;
             width: 320px;
@@ -136,6 +135,26 @@
             letter-spacing: 1px;
         }
 
+        /* 新增说明区块样式 */
+        .intro-block {
+            text-align: center;
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 1px solid #4a2f61;
+            border-radius: 12px;
+            background: rgba(35, 22, 50, 0.4);
+        }
+        .intro-block h2 {
+            font-size: 20px;
+            color: #d8b8f0;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        .intro-block p {
+            font-size: 15px;
+            color: #c2a8d8;
+        }
+
         .form-group {
             margin-bottom: 18px;
         }
@@ -239,8 +258,23 @@
     </div>
 
     <div class="container">
-        <h1>Elemental Astrology Divination</h1>
-        <p class="subtitle">Submit your birth information for celestial reading</p>
+        <h1>Element Wisdom - Witch Reading</h1>
+        <p class="subtitle">Ancient Witch Divination · Star & Elemental Magic ·</p>
+
+        <!-- 新增说明 -->
+        <div class="intro-block">
+            <h2>📜 Ancient Wisdom</h2>
+            <p>From ancient Greek astrologers, passed down by Romani Gypsies and witches. This divination combines celestial energy and elemental power to reveal your true self.</p>
+        </div>
+        <div class="intro-block">
+            <h2>✨ Cosmic Connection</h2>
+            <p>Sun, Moon, and stars affect Earth’s magnetic field and human destiny. Your birth moment holds the key to your elemental balance.</p>
+        </div>
+        <div class="intro-block">
+            <h2>🌍 🔥 💨 💧 ⋆ 🔮 Balance & Healing</h2>
+            <p>Balance Earth, Fire, Wind, Water to restore your body, mind, and spirit. Discover your elemental alignment through ancient witchcraft divination.</p>
+        </div>
+
         <div class="form-group">
             <label>Name</label>
             <input type="text" id="userName" placeholder="Enter your name">
