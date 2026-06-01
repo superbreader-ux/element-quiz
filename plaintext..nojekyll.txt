@@ -1,1 +1,0 @@
-welcome.html → index.html → result.html → personality.html → guide.html
